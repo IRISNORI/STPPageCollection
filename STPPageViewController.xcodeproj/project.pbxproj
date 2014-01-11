@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C4DDCF518780C0500F809D3 /* STPDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4DDCF418780C0500F809D3 /* STPDataViewController.m */; };
+		8C5652C1187F071000DE7E3E /* NMListCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5652C0187F071000DE7E3E /* NMListCollectionController.m */; };
 		8C8BAB04186C54190076DFE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8BAB03186C54190076DFE6 /* Foundation.framework */; };
 		8C8BAB06186C54190076DFE6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8BAB05186C54190076DFE6 /* CoreGraphics.framework */; };
 		8C8BAB08186C54190076DFE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8BAB07186C54190076DFE6 /* UIKit.framework */; };
@@ -14,8 +16,6 @@
 		8C8BAB10186C54190076DFE6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8BAB0F186C54190076DFE6 /* main.m */; };
 		8C8BAB14186C54190076DFE6 /* STPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8BAB13186C54190076DFE6 /* STPAppDelegate.m */; };
 		8C8BAB17186C54190076DFE6 /* STPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8BAB16186C54190076DFE6 /* STPRootViewController.m */; };
-		8C8BAB1A186C54190076DFE6 /* STPDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8BAB19186C54190076DFE6 /* STPDataViewController.m */; };
-		8C8BAB1D186C54190076DFE6 /* STPModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8BAB1C186C54190076DFE6 /* STPModelController.m */; };
 		8C8BAB20186C54190076DFE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8BAB1E186C54190076DFE6 /* Main.storyboard */; };
 		8C8BAB22186C54190076DFE6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C8BAB21186C54190076DFE6 /* Images.xcassets */; };
 		8C8BAB29186C54190076DFE6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8BAB28186C54190076DFE6 /* XCTest.framework */; };
@@ -23,6 +23,15 @@
 		8C8BAB2B186C54190076DFE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8BAB07186C54190076DFE6 /* UIKit.framework */; };
 		8C8BAB33186C54190076DFE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C8BAB31186C54190076DFE6 /* InfoPlist.strings */; };
 		8C8BAB35186C54190076DFE6 /* STPPageViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8BAB34186C54190076DFE6 /* STPPageViewControllerTests.m */; };
+		8C8E6A3A1875AF6B00627140 /* STPTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A311875AF6B00627140 /* STPTransitionManager.m */; };
+		8C8E6A3B1875AF6B00627140 /* STPListPickUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A331875AF6B00627140 /* STPListPickUpCell.m */; };
+		8C8E6A3C1875AF6B00627140 /* STPCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A351875AF6B00627140 /* STPCollectionViewController.m */; };
+		8C8E6A3D1875AF6B00627140 /* STPListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A371875AF6B00627140 /* STPListViewController.m */; };
+		8C8E6A3E1875AF6B00627140 /* STPPickUpLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A391875AF6B00627140 /* STPPickUpLayout.m */; };
+		8C8E6A411875AFA900627140 /* STPPickUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A401875AFA900627140 /* STPPickUpViewController.m */; };
+		8C8E6A441875B01000627140 /* STPDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A431875B01000627140 /* STPDataCollectionViewController.m */; };
+		8C8E6A4C1875B37E00627140 /* STPDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E6A4B1875B37E00627140 /* STPDataController.m */; };
+		A2850BE0186C568D0005E602 /* NMPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2850BDF186C568D0005E602 /* NMPageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C4DDCF318780C0500F809D3 /* STPDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPDataViewController.h; sourceTree = "<group>"; };
+		8C4DDCF418780C0500F809D3 /* STPDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPDataViewController.m; sourceTree = "<group>"; };
+		8C5652BF187F071000DE7E3E /* NMListCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMListCollectionController.h; sourceTree = "<group>"; };
+		8C5652C0187F071000DE7E3E /* NMListCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMListCollectionController.m; sourceTree = "<group>"; };
 		8C8BAB00186C54180076DFE6 /* STPPageViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STPPageViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C8BAB03186C54190076DFE6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8C8BAB05186C54190076DFE6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,10 +61,6 @@
 		8C8BAB13186C54190076DFE6 /* STPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STPAppDelegate.m; sourceTree = "<group>"; };
 		8C8BAB15186C54190076DFE6 /* STPRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STPRootViewController.h; sourceTree = "<group>"; };
 		8C8BAB16186C54190076DFE6 /* STPRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STPRootViewController.m; sourceTree = "<group>"; };
-		8C8BAB18186C54190076DFE6 /* STPDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STPDataViewController.h; sourceTree = "<group>"; };
-		8C8BAB19186C54190076DFE6 /* STPDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STPDataViewController.m; sourceTree = "<group>"; };
-		8C8BAB1B186C54190076DFE6 /* STPModelController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STPModelController.h; sourceTree = "<group>"; };
-		8C8BAB1C186C54190076DFE6 /* STPModelController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STPModelController.m; sourceTree = "<group>"; };
 		8C8BAB1F186C54190076DFE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C8BAB21186C54190076DFE6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8C8BAB27186C54190076DFE6 /* STPPageViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STPPageViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +68,24 @@
 		8C8BAB30186C54190076DFE6 /* STPPageViewControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STPPageViewControllerTests-Info.plist"; sourceTree = "<group>"; };
 		8C8BAB32186C54190076DFE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8C8BAB34186C54190076DFE6 /* STPPageViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STPPageViewControllerTests.m; sourceTree = "<group>"; };
+		8C8E6A301875AF6B00627140 /* STPTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPTransitionManager.h; sourceTree = "<group>"; };
+		8C8E6A311875AF6B00627140 /* STPTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPTransitionManager.m; sourceTree = "<group>"; };
+		8C8E6A321875AF6B00627140 /* STPListPickUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPListPickUpCell.h; sourceTree = "<group>"; };
+		8C8E6A331875AF6B00627140 /* STPListPickUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPListPickUpCell.m; sourceTree = "<group>"; };
+		8C8E6A341875AF6B00627140 /* STPCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPCollectionViewController.h; sourceTree = "<group>"; };
+		8C8E6A351875AF6B00627140 /* STPCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPCollectionViewController.m; sourceTree = "<group>"; };
+		8C8E6A361875AF6B00627140 /* STPListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPListViewController.h; sourceTree = "<group>"; };
+		8C8E6A371875AF6B00627140 /* STPListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPListViewController.m; sourceTree = "<group>"; };
+		8C8E6A381875AF6B00627140 /* STPPickUpLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPPickUpLayout.h; sourceTree = "<group>"; };
+		8C8E6A391875AF6B00627140 /* STPPickUpLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPPickUpLayout.m; sourceTree = "<group>"; };
+		8C8E6A3F1875AFA900627140 /* STPPickUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPPickUpViewController.h; sourceTree = "<group>"; };
+		8C8E6A401875AFA900627140 /* STPPickUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPPickUpViewController.m; sourceTree = "<group>"; };
+		8C8E6A421875B01000627140 /* STPDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPDataCollectionViewController.h; sourceTree = "<group>"; };
+		8C8E6A431875B01000627140 /* STPDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPDataCollectionViewController.m; sourceTree = "<group>"; };
+		8C8E6A4A1875B37E00627140 /* STPDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPDataController.h; sourceTree = "<group>"; };
+		8C8E6A4B1875B37E00627140 /* STPDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPDataController.m; sourceTree = "<group>"; };
+		A2850BDE186C568D0005E602 /* NMPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMPageViewController.h; sourceTree = "<group>"; };
+		A2850BDF186C568D0005E602 /* NMPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMPageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,15 +145,15 @@
 		8C8BAB09186C54190076DFE6 /* STPPageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8C8BAB1E186C54190076DFE6 /* Main.storyboard */,
 				8C8BAB12186C54190076DFE6 /* STPAppDelegate.h */,
 				8C8BAB13186C54190076DFE6 /* STPAppDelegate.m */,
-				8C8BAB15186C54190076DFE6 /* STPRootViewController.h */,
-				8C8BAB16186C54190076DFE6 /* STPRootViewController.m */,
-				8C8BAB18186C54190076DFE6 /* STPDataViewController.h */,
-				8C8BAB19186C54190076DFE6 /* STPDataViewController.m */,
-				8C8BAB1B186C54190076DFE6 /* STPModelController.h */,
-				8C8BAB1C186C54190076DFE6 /* STPModelController.m */,
-				8C8BAB1E186C54190076DFE6 /* Main.storyboard */,
+				8C5652BF187F071000DE7E3E /* NMListCollectionController.h */,
+				8C5652C0187F071000DE7E3E /* NMListCollectionController.m */,
+				8C8E6A4A1875B37E00627140 /* STPDataController.h */,
+				8C8E6A4B1875B37E00627140 /* STPDataController.m */,
+				8C8E6A451875B04600627140 /* PageView */,
+				8C8E6A461875B08F00627140 /* CollectionView */,
 				8C8BAB21186C54190076DFE6 /* Images.xcassets */,
 				8C8BAB0A186C54190076DFE6 /* Supporting Files */,
 			);
@@ -160,6 +187,40 @@
 				8C8BAB31186C54190076DFE6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C8E6A451875B04600627140 /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				A2850BDE186C568D0005E602 /* NMPageViewController.h */,
+				A2850BDF186C568D0005E602 /* NMPageViewController.m */,
+				8C8BAB15186C54190076DFE6 /* STPRootViewController.h */,
+				8C8BAB16186C54190076DFE6 /* STPRootViewController.m */,
+				8C4DDCF318780C0500F809D3 /* STPDataViewController.h */,
+				8C4DDCF418780C0500F809D3 /* STPDataViewController.m */,
+				8C8E6A421875B01000627140 /* STPDataCollectionViewController.h */,
+				8C8E6A431875B01000627140 /* STPDataCollectionViewController.m */,
+			);
+			name = PageView;
+			sourceTree = "<group>";
+		};
+		8C8E6A461875B08F00627140 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				8C8E6A341875AF6B00627140 /* STPCollectionViewController.h */,
+				8C8E6A351875AF6B00627140 /* STPCollectionViewController.m */,
+				8C8E6A321875AF6B00627140 /* STPListPickUpCell.h */,
+				8C8E6A331875AF6B00627140 /* STPListPickUpCell.m */,
+				8C8E6A361875AF6B00627140 /* STPListViewController.h */,
+				8C8E6A371875AF6B00627140 /* STPListViewController.m */,
+				8C8E6A301875AF6B00627140 /* STPTransitionManager.h */,
+				8C8E6A311875AF6B00627140 /* STPTransitionManager.m */,
+				8C8E6A381875AF6B00627140 /* STPPickUpLayout.h */,
+				8C8E6A391875AF6B00627140 /* STPPickUpLayout.m */,
+				8C8E6A3F1875AFA900627140 /* STPPickUpViewController.h */,
+				8C8E6A401875AFA900627140 /* STPPickUpViewController.m */,
+			);
+			name = CollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,10 +321,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C8BAB1D186C54190076DFE6 /* STPModelController.m in Sources */,
+				A2850BE0186C568D0005E602 /* NMPageViewController.m in Sources */,
+				8C8E6A411875AFA900627140 /* STPPickUpViewController.m in Sources */,
+				8C8E6A3C1875AF6B00627140 /* STPCollectionViewController.m in Sources */,
+				8C8E6A3E1875AF6B00627140 /* STPPickUpLayout.m in Sources */,
+				8C8E6A441875B01000627140 /* STPDataCollectionViewController.m in Sources */,
 				8C8BAB14186C54190076DFE6 /* STPAppDelegate.m in Sources */,
+				8C4DDCF518780C0500F809D3 /* STPDataViewController.m in Sources */,
+				8C8E6A3A1875AF6B00627140 /* STPTransitionManager.m in Sources */,
+				8C5652C1187F071000DE7E3E /* NMListCollectionController.m in Sources */,
+				8C8E6A4C1875B37E00627140 /* STPDataController.m in Sources */,
 				8C8BAB10186C54190076DFE6 /* main.m in Sources */,
-				8C8BAB1A186C54190076DFE6 /* STPDataViewController.m in Sources */,
+				8C8E6A3D1875AF6B00627140 /* STPListViewController.m in Sources */,
+				8C8E6A3B1875AF6B00627140 /* STPListPickUpCell.m in Sources */,
 				8C8BAB17186C54190076DFE6 /* STPRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +543,7 @@
 				8C8BAB3A186C54190076DFE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8C8BAB3B186C54190076DFE6 /* Build configuration list for PBXNativeTarget "STPPageViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +552,7 @@
 				8C8BAB3D186C54190076DFE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,6 +1,6 @@
 //
 //  STPModelController.m
-//  STPPageViewController
+//  NMPageViewController
 //
 //  Created by Norikazu on 2013/12/26.
 //  Copyright (c) 2013年 Norikazu Muramoto. All rights reserved.
@@ -45,6 +45,8 @@
     
     // Create a new view controller and pass suitable data.
     STPDataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"STPDataViewController"];
+
+    dataViewController.view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.pageData.count saturation:1 brightness:1 alpha:1];
     dataViewController.dataObject = self.pageData[index];
     return dataViewController;
 }
@@ -58,7 +60,7 @@
 
 #pragma mark - Page View Controller Data Source
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(NMPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
     if ((index == 0) || (index == NSNotFound)) {
@@ -69,7 +71,7 @@
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(NMPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
     if (index == NSNotFound) {
@@ -81,6 +83,35 @@
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+}
+
+- (UIView *)pageViewController:(NMPageViewController *)pageViewController afterBackgroundView:(UIViewController *)viewController
+{
+    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
+    if (index == NSNotFound) {
+        return nil;
+    }
+    
+    index++;
+    if (index == [self.pageData count]) {
+        return nil;
+    }
+    view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.pageData.count saturation:1 brightness:1 alpha:1];
+    return view;
+}
+
+- (UIView *)pageViewController:(NMPageViewController *)pageViewController beforeBackgroundView:(UIViewController *)viewController
+{
+    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
+    if ((index == 0) || (index == NSNotFound)) {
+        return nil;
+    }
+    
+    index--;
+    view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.pageData.count saturation:1 brightness:1 alpha:1];
+    return view;
 }
 
 @end

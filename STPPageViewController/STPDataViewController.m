@@ -1,9 +1,9 @@
 //
 //  STPDataViewController.m
-//  STPPageViewController
+//  Page
 //
-//  Created by Norikazu on 2013/12/26.
-//  Copyright (c) 2013年 Norikazu Muramoto. All rights reserved.
+//  Created by Norikazu on 2014/01/04.
+//  Copyright (c) 2014年 Norikazu Muramoto. All rights reserved.
 //
 
 #import "STPDataViewController.h"
