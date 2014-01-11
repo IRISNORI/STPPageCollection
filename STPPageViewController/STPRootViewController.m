@@ -1,49 +1,56 @@
 //
 //  STPRootViewController.m
-//  STPPageViewController
+//  NMPageViewController
 //
 //  Created by Norikazu on 2013/12/26.
 //  Copyright (c) 2013年 Norikazu Muramoto. All rights reserved.
 //
 
 #import "STPRootViewController.h"
-
-#import "STPModelController.h"
-
-#import "STPDataViewController.h"
+#import "STPDataCollectionViewController.h"
 
 @interface STPRootViewController ()
-@property (readonly, strong, nonatomic) STPModelController *modelController;
+
 @end
 
 @implementation STPRootViewController
 
-@synthesize modelController = _modelController;
+- (id)initWithDataController:(STPDataController *)dataController indexPath:(NSIndexPath *)indexPath
+{
+    self = [super init];
+    if (self) {
+        _dataController = dataController;
+        _selectedIndexPath = indexPath;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    // Configure the page view controller and add it as a child view controller.
-    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+
+    self.pageViewController = [[NMPageViewController alloc] init];
     self.pageViewController.delegate = self;
 
-    STPDataViewController *startingViewController = [self.modelController viewControllerAtIndex:0 storyboard:self.storyboard];
-    NSArray *viewControllers = @[startingViewController];
-    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-
-    self.pageViewController.dataSource = self.modelController;
+    
+    STPDataViewController *startingViewController = [self.dataController viewControllerAtIndex:self.selectedIndexPath.row];
+    [self.pageViewController setStartViewController:(UIViewController *)startingViewController];
+    
+    UIView *backgroundView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    backgroundView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
+    [self.pageViewController setBackgroundView:backgroundView];
+    
+    self.pageViewController.dataSource = self.dataController;
 
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
 
-    // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
+    
     CGRect pageViewRect = self.view.bounds;
     self.pageViewController.view.frame = pageViewRect;
 
     [self.pageViewController didMoveToParentViewController:self];
 
-    // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
 }
 
@@ -53,34 +60,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (STPModelController *)modelController
+- (STPDataController *)dataController
 {
      // Return the model controller object, creating it if necessary.
      // In more complex implementations, the model controller may be passed to the view controller.
-    if (!_modelController) {
-        _modelController = [[STPModelController alloc] init];
+    if (!_dataController) {
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSArray *data = [[dateFormatter monthSymbols] copy];
+        
+        _dataController = [[STPDataController alloc] initWithDataSource:data];
     }
-    return _modelController;
+    return _dataController;
 }
 
 #pragma mark - UIPageViewController delegate methods
 
-/*
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
-{
-    
-}
- */
 
-- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation
+- (void)pageViewController:(NMPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
-    // Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
-    UIViewController *currentViewController = self.pageViewController.viewControllers[0];
-    NSArray *viewControllers = @[currentViewController];
-    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-
-    self.pageViewController.doubleSided = NO;
-    return UIPageViewControllerSpineLocationMin;
+    if (completed) {
+        NSUInteger index = [self.dataController indexOfViewController:[previousViewControllers lastObject]];
+        [self.delegate pagingViewDidChange:index];
+    }
 }
+
+
 
 @end

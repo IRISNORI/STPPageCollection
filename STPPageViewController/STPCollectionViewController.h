@@ -7,21 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "STPDataController.h"
 #import "STPListPickUpCell.h"
+
+UIKIT_EXTERN NSString * const STPListCellIdetifier;
+UIKIT_EXTERN NSString * const STPPickUpCellIdentifier;
+UIKIT_EXTERN NSString * const STPListPickUpCellIdentifier;
 
 @interface STPCollectionViewController : UICollectionViewController
 
 @property (nonatomic) NSIndexPath *selectedIndexPath;
-@property (nonatomic) NSString *listCellIdentifier;
-@property (nonatomic) NSString *pickUpCellIdentifier;
-@property (nonatomic) NSString *listPickUpCellIdentifier;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) STPDataController *dataController;
 
 - (UICollectionViewController *)nextViewControllerAtPoint:(CGPoint)point;
 - (UICollectionViewController *)nextViewControllerAtIndexPath:(NSIndexPath *)indexPath;
-- (UICollectionViewController *)nextViewControllerAtIndexPath:(NSIndexPath *)indexPath gesture:(UIGestureRecognizer *)gesture;
+- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout dataController:(STPDataController *)dataController;
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout indexPath:(NSIndexPath *)indexPath;
 
 @end

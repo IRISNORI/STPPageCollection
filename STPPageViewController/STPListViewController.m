@@ -7,7 +7,7 @@
 //
 
 #import "STPListViewController.h"
-#import "STPPageViewController.h"
+#import "STPPickUpViewController.h"
 #import "STPPickUpLayout.h"
 
 @interface STPListViewController ()
@@ -16,12 +16,10 @@
 
 @implementation STPListViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-	// Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,22 +39,6 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-
-- (UICollectionViewController*)nextViewControllerAtPoint:(CGPoint)point
-{
-    // We could have multiple section stacks and find the right one,
-    STPPickUpLayout *layout = [STPPickUpLayout new];
-    
-    layout.itemSize = CGSizeMake(320, 130);
-    layout.selectedItemSize = [UIScreen mainScreen].bounds.size;
-    
-    STPPageViewController* nextCollectionViewController = [[STPPageViewController alloc] initWithCollectionViewLayout:layout];
-    nextCollectionViewController.fetchedResultsController = self.fetchedResultsController;
-    nextCollectionViewController.useLayoutToLayoutNavigationTransitions = YES;
-    nextCollectionViewController.title = @"Layout 2";
-    return nextCollectionViewController;
-}
-
 - (UICollectionViewController*)nextViewControllerAtIndexPath:(NSIndexPath *)indexPath
 {
     // We could have multiple section stacks and find the right one,
@@ -66,15 +48,13 @@
     layout.selectedItemSize = [UIScreen mainScreen].bounds.size;
     layout.selectedIndexPath = indexPath;
     
-    STPPageViewController* nextCollectionViewController = [[STPPageViewController alloc] initWithCollectionViewLayout:layout indexPath:indexPath];
+    STPPickUpViewController* nextCollectionViewController = [[STPPickUpViewController alloc] initWithCollectionViewLayout:layout indexPath:indexPath];
     nextCollectionViewController.view.gestureRecognizers = self.view.gestureRecognizers;
     nextCollectionViewController.fetchedResultsController = self.fetchedResultsController;
     nextCollectionViewController.useLayoutToLayoutNavigationTransitions = YES;
     nextCollectionViewController.title = @"Layout 2";
     return nextCollectionViewController;
 }
-
-
 
 
 @end

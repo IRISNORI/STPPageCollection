@@ -14,9 +14,21 @@
 
 @implementation STPDataViewController
 
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _dataLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 200, 30)];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view addSubview:self.dataLabel];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 

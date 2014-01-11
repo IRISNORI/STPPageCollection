@@ -1,66 +1,114 @@
 //
-//  STPModelController.m
+//  STPDataController.m
 //  NMPageViewController
 //
 //  Created by Norikazu on 2013/12/26.
 //  Copyright (c) 2013年 Norikazu Muramoto. All rights reserved.
 //
 
-#import "STPModelController.h"
-
+#import "STPDataController.h"
 #import "STPDataViewController.h"
 
-/*
- A controller object that manages a simple model -- a collection of month names.
- 
- The controller serves as the data source for the page view controller; it therefore implements pageViewController:viewControllerBeforeViewController: and pageViewController:viewControllerAfterViewController:.
- It also implements a custom method, viewControllerAtIndex: which is useful in the implementation of the data source methods, and in the initial configuration of the application.
- 
- There is no need to actually create view controllers for each page in advance -- indeed doing so incurs unnecessary overhead. Given the data model, these methods create, configure, and return a new view controller on demand.
- */
 
-@interface STPModelController()
-@property (readonly, strong, nonatomic) NSArray *pageData;
+@interface STPDataController()
+@property (nonatomic, strong) NSFetchedResultsController *resultsController;
+@property (nonatomic, strong) NSArray *dataArray;
 @end
 
-@implementation STPModelController
+@implementation STPDataController
 
-- (id)init
+
+- (id)initWithDataSource:(id)dataSource
 {
     self = [super init];
     if (self) {
-        // Create the data model.
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        _pageData = [[dateFormatter monthSymbols] copy];
+        if ([dataSource isKindOfClass:[NSArray class]]) {
+            _dataSourceType = STPDataSourceModeArray;
+            _dataArray = dataSource;
+            _resultsController = nil;
+        }
+        if ([dataSource isKindOfClass:[NSFetchedResultsController class]]) {
+            _dataSourceType = STPDataSourceModeCoreData;
+            _resultsController = dataSource;
+            _dataArray = nil;
+        }
     }
     return self;
 }
 
-- (STPDataViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
-{   
-    // Return the data view controller for the given index.
-    if (([self.pageData count] == 0) || (index >= [self.pageData count])) {
-        return nil;
+- (STPDataViewController *)viewControllerAtIndex:(NSUInteger)index
+{
+    
+    STPDataViewController *dataViewController;
+    
+    switch (self.dataSourceType) {
+        case STPDataSourceModeCoreData:
+        {
+            id <NSFetchedResultsSectionInfo> sectionInfo = [self.resultsController sections][0];
+            if (([sectionInfo numberOfObjects] == 0) || (index >= [sectionInfo numberOfObjects])) {
+                return nil;
+            }
+            dataViewController = [[STPDataViewController alloc] init];
+            dataViewController.dataObject = [self.resultsController objectAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+            break;
+        }
+        case STPDataSourceModeArray:
+        default:
+            if (([self.dataArray count] == 0) || (index >= [self.dataArray count])) {
+                return nil;
+            }
+            dataViewController = [[STPDataViewController alloc] init];
+            dataViewController.dataObject = self.dataArray[index];
+            break;
     }
     
-    // Create a new view controller and pass suitable data.
-    STPDataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"STPDataViewController"];
-
-    dataViewController.view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.pageData.count saturation:1 brightness:1 alpha:1];
-    dataViewController.dataObject = self.pageData[index];
     return dataViewController;
 }
 
+- (NSUInteger)count
+{
+    NSUInteger cnt;
+    switch (self.dataSourceType) {
+        case STPDataSourceModeCoreData:
+        {
+            id <NSFetchedResultsSectionInfo> sectionInfo = [self.resultsController sections][0];
+            cnt = [sectionInfo numberOfObjects];
+            break;
+        }
+        case STPDataSourceModeArray:
+        default:
+            cnt = [self.dataArray count];
+            break;
+    }
+    return cnt;
+}
+
+- (id)objectDataAtIndex:(NSUInteger)index
+{
+    id object;
+    switch (self.dataSourceType) {
+        case STPDataSourceModeCoreData:
+        {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+            object = [self.resultsController objectAtIndexPath:indexPath];
+            break;
+        }
+        case STPDataSourceModeArray:
+        default:
+            object = [self.dataArray objectAtIndex:index];
+            break;
+    }
+    return object;
+}
+
 - (NSUInteger)indexOfViewController:(STPDataViewController *)viewController
-{   
-     // Return the index of the given data view controller.
-     // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-    return [self.pageData indexOfObject:viewController.dataObject];
+{
+    return [self.dataArray indexOfObject:viewController.dataObject];
 }
 
 #pragma mark - Page View Controller Data Source
 
-- (UIViewController *)pageViewController:(NMPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
     if ((index == 0) || (index == NSNotFound)) {
@@ -68,10 +116,10 @@
     }
     
     index--;
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    return [self viewControllerAtIndex:index];
 }
 
-- (UIViewController *)pageViewController:(NMPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
     if (index == NSNotFound) {
@@ -79,26 +127,10 @@
     }
     
     index++;
-    if (index == [self.pageData count]) {
+    if (index == [self.dataArray count]) {
         return nil;
     }
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
-}
-
-- (UIView *)pageViewController:(NMPageViewController *)pageViewController afterBackgroundView:(UIViewController *)viewController
-{
-    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
-    if (index == NSNotFound) {
-        return nil;
-    }
-    
-    index++;
-    if (index == [self.pageData count]) {
-        return nil;
-    }
-    view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.pageData.count saturation:1 brightness:1 alpha:1];
-    return view;
+    return [self viewControllerAtIndex:index];
 }
 
 - (UIView *)pageViewController:(NMPageViewController *)pageViewController beforeBackgroundView:(UIViewController *)viewController
@@ -110,8 +142,26 @@
     }
     
     index--;
-    view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.pageData.count saturation:1 brightness:1 alpha:1];
+    view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.dataArray.count saturation:1 brightness:1 alpha:1];
     return view;
 }
+
+- (UIView *)pageViewController:(NMPageViewController *)pageViewController afterBackgroundView:(UIViewController *)viewController
+{
+    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    NSUInteger index = [self indexOfViewController:(STPDataViewController *)viewController];
+    if (index == NSNotFound) {
+        return nil;
+    }
+    
+    index++;
+    if (index == [self.dataArray count]) {
+        return nil;
+    }
+    view.backgroundColor = [UIColor colorWithHue:floorf(index)/self.dataArray.count saturation:1 brightness:1 alpha:1];
+    return view;
+}
+
+
 
 @end

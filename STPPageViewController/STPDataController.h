@@ -1,5 +1,5 @@
 //
-//  STPModelController.h
+//  STPDataController.h
 //  NMPageViewController
 //
 //  Created by Norikazu on 2013/12/26.
@@ -7,13 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 #import "NMPageViewController.h"
+
+
 
 @class STPDataViewController;
 
-@interface STPModelController : NSObject <NMPageViewControllerDataSource>
+typedef NS_ENUM(NSInteger, STPDataSourceType) {
+    STPDataSourceModeCoreData,
+    STPDataSourceModeArray
+};
 
-- (STPDataViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
+
+/*
+@protocol STPDataViewControllerDelegate <NSObject>
+@required
+- (STPDataCollectionViewController *)startViewCollectionController;
+@end
+*/
+
+@interface STPDataController : NSObject <NMPageViewControllerDataSource>
+
+@property (nonatomic, readonly) STPDataSourceType dataSourceType;
+
+- (id)initWithDataSource:(id)dataSource;
+
+- (STPDataViewController *)viewControllerAtIndex:(NSUInteger)index;
 - (NSUInteger)indexOfViewController:(STPDataViewController *)viewController;
+- (NSUInteger)count;
 
 @end
+

@@ -7,17 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RestKit.h>
-#import <CoreData.h>
-#import "PLNObjectManager.h"
 
-@interface STPDataCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) RKManagedObjectStore *managedObjectStore;
+@interface STPDataCollectionViewController : UICollectionViewController
 
 @property (strong, nonatomic) id dataObject;
-
 
 @end

@@ -8,32 +8,31 @@
 
 #import "STPCollectionViewController.h"
 
+NSString * const STPListCellIdetifier          = @"ListCell";
+NSString * const STPPickUpCellIdentifier       = @"PickUpCell";
+NSString * const STPListPickUpCellIdentifier   = @"listPickUpCell";
+
 @interface STPCollectionViewController ()
+
 
 @end
 
 @implementation STPCollectionViewController
 
-- (NSString *)listCellIdentifier
-{
-    return @"ListCell";
-}
-
-- (NSString *)pickUpCellIdentifier
-{
-    return @"PickUpCell";
-}
-
-- (NSString *)listPickUpCellIdentifier
-{
-    return @"listPickUpCell";
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout dataController:(STPDataController *)dataController
+{
+    if (self = [super initWithCollectionViewLayout:layout]) {
+        _dataController = dataController;
     }
     return self;
 }
@@ -51,7 +50,8 @@
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.collectionView registerClass:[STPListPickUpCell class] forCellWithReuseIdentifier:self.listPickUpCellIdentifier];
+    self.collectionView.showsVerticalScrollIndicator = NO;
+    [self.collectionView registerClass:[STPListPickUpCell class] forCellWithReuseIdentifier:STPListPickUpCellIdentifier];
 }
 
 - (UICollectionViewController *)nextViewControllerAtPoint:(CGPoint)point
@@ -74,20 +74,19 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    STPListPickUpCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.listPickUpCellIdentifier forIndexPath:indexPath];
+    STPListPickUpCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:STPListPickUpCellIdentifier forIndexPath:indexPath];
     cell.backgroundColor = [UIColor colorWithHue:1.0f/[self collectionView:collectionView numberOfItemsInSection:0] * indexPath.row saturation:1 brightness:1 alpha:1];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return [self.dataController count];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
@@ -95,6 +94,20 @@
     UICollectionViewTransitionLayout *layout = [[UICollectionViewTransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
     
     return layout;
+}
+
+- (STPDataController *)dataController
+{
+    // Return the model controller object, creating it if necessary.
+    // In more complex implementations, the model controller may be passed to the view controller.
+    if (!_dataController) {
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSArray *data = [[dateFormatter monthSymbols] copy];
+        
+        _dataController = [[STPDataController alloc] initWithDataSource:data];
+    }
+    return _dataController;
 }
 
 

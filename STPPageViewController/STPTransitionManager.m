@@ -25,10 +25,6 @@
     self = [super init];
     if (self != nil)
     {
-        // setup our pinch gesture:
-        //  pinch in closes photos down into a stack,
-        //  pinch out expands the photos intoa  grid
-        //
         _pinchGesture =
         [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
         [collectionView addGestureRecognizer:_pinchGesture];
@@ -98,17 +94,15 @@
 
 - (void)animationEnded:(BOOL)transitionCompleted
 {
-    if (self.presenting) {
-        [self.viewDelegate addGesture:self.pinchGesture];
-    } else {
-        [self.collectionView addGestureRecognizer:self.pinchGesture];
+    if (transitionCompleted) {
+        if (self.presenting) {
+            [self.viewDelegate addGesture:self.pinchGesture];
+        } else {
+            [self.collectionView addGestureRecognizer:self.pinchGesture];
+        }
     }
-    
 }
 
-// required method for view controller transitions, called when the system needs to set up
-// the interactive portions of a view controller transition and start the animations
-//
 - (void)startInteractiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
     self.context = transitionContext;
@@ -147,19 +141,13 @@
     }
 }
 
-// called by our pinch gesture recognizer when the gesture has finished or cancelled, which
-// in turn is responsible for finishing or cancelling the transition.
-//
 - (void)endInteractionWithSuccess:(BOOL)success
 {
     if (self.context == nil)
     {
         self.hasActiveInteraction = NO;
     }
-    // allow for the transition to finish when it's progress has started as a threshold of 10%,
-    // if you want to require the pinch gesture with a wider threshold, change it it a value closer to 1.0
-    //
-    else if ((self.transitionLayout.transitionProgress > 0.1) && success)
+    else if ((self.transitionLayout.transitionProgress > 0.35) && success)
     {
         [self.collectionView finishInteractiveTransition];
         [self.context finishInteractiveTransition];
@@ -176,13 +164,13 @@
         [self.context cancelInteractiveTransition];
         [self.viewDelegate cancelInteractiveTransition:self.transitionLayout.transitionProgress presenting:self.presenting];
     }
+    self.hasActiveInteraction = NO;
 }
 
 // action method for our pinch gesture recognizer
 //
 - (void)handlePinch:(UIPinchGestureRecognizer *)sender
 {
-    // here we want to end the transition interaction if the user stops or finishes the pinch gesture
     if (sender.state == UIGestureRecognizerStateEnded)
     {
         [self endInteractionWithSuccess:YES];
@@ -224,7 +212,6 @@
                     self.presenting = YES;
                 }
                 
-                //[self.delegate interactionBeganAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
                 [self.delegate interactionBeganAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
                 
             }

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class STPDataController;
+@class STPListPickUpCell;
+@class STPListViewController;
+@class STPPickUpViewController;
+
 @interface NMListCollectionController : UINavigationController
 
+@property (nonatomic) id listViewDelegate;
+
+- (id)initWithListViewController:(STPListViewController*)listViewController;
 @end

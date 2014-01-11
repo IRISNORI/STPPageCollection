@@ -7,12 +7,42 @@
 //
 
 #import "STPAppDelegate.h"
+#import "STPTransitionManager.h"
+#import "STPListViewController.h"
+#import "STPPickUpViewController.h"
+#import "STPDataController.h"
+
+@interface STPAppDelegate () <UINavigationControllerDelegate, STPTransitionManagerDelegate>
+
+@property (nonatomic, strong) STPTransitionManager *transitionManager;
+@property (nonatomic, strong) STPListViewController *collectionViewController;
+
+@end
 
 @implementation STPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+
+    
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    navigationController.delegate = self;
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.itemSize = CGSizeMake(320, 130);
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSArray *data = [[dateFormatter monthSymbols] copy];
+    
+    STPDataController *dataController = [[STPDataController alloc] initWithDataSource:data];
+    _collectionViewController = [[STPListViewController alloc] initWithCollectionViewLayout:layout dataController:dataController];
+    _transitionManager = [[STPTransitionManager alloc] initWithCollectionViewController:_collectionViewController];
+    
+    self.transitionManager.delegate = self;
+    
+    [navigationController setViewControllers:@[_collectionViewController]];
+
     return YES;
 }
 
@@ -41,6 +71,70 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark - TransitionControllerDelegate
+
+- (void)interactionBeganAtPoint:(CGPoint)point
+{
+
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    UIViewController *viewController =
+    [(STPCollectionViewController *)navigationController.topViewController nextViewControllerAtPoint:point];
+    if (viewController != nil) {
+        
+        [navigationController pushViewController:viewController animated:YES];
+    } else {
+        [navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)interactionBeganAtIndexPath:(NSIndexPath *)indexPath
+{
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    UIViewController *viewController =
+    [(STPCollectionViewController *)navigationController.topViewController nextViewControllerAtIndexPath:indexPath];
+    if (viewController != nil) {
+        [navigationController pushViewController:viewController animated:YES];
+    } else {
+        [navigationController popViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                          interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController
+{
+    if (animationController == self.transitionManager){
+    return self.transitionManager;
+    }
+    return nil;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC
+{
+    id transitionManager = nil;
+    
+    if ([toVC isKindOfClass:[STPPickUpViewController class]]) {
+        self.transitionManager.viewDelegate = (STPPickUpViewController *)toVC;
+    }
+    
+    if ([fromVC isKindOfClass:[UICollectionViewController class]] &&
+        [toVC isKindOfClass:[UICollectionViewController class]] &&
+        self.transitionManager.hasActiveInteraction)
+    {
+        self.transitionManager.navigationOperation = operation;
+        transitionManager = self.transitionManager;
+    } else {
+        transitionManager = self.transitionManager;
+    }
+    
+    return transitionManager;
 }
 
 @end
